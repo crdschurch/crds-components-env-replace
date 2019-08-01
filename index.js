@@ -31,7 +31,7 @@ class EnvReplacer {
   }
 
   replaceCompAttrs() {
-    if (this.isEnv('int')) return false
+    if (!(this.isEnv('demo') || this.isEnv('prod'))) return false
     replace.sync({
       files: this.file,
       from: /(env=")(\w*)"/g,
@@ -40,7 +40,7 @@ class EnvReplacer {
   }
 
   replaceCompLib() {
-    if (this.isEnv('int') || this.isEnv('demo')) return false
+    if (!this.isEnv('prod')) return false
     replace.sync({
       files: this.file,
       from: /crds-components-int.netlify.com/g,
