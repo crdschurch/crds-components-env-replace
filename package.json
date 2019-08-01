@@ -4,6 +4,7 @@
   "description": "Utility to swap environment values following an SPA build process.",
   "main": "index.js",
   "scripts": {
+    "run-script": "node ./index.js",
     "test": "mocha"
   },
   "repository": {
@@ -15,5 +16,15 @@
   "bugs": {
     "url": "https://github.com/crdschurch/crds-components-env-replace/issues"
   },
-  "homepage": "https://github.com/crdschurch/crds-components-env-replace#readme"
+  "homepage": "https://github.com/crdschurch/crds-components-env-replace#readme",
+  "devDependencies": {
+    "mocha": "^6.2.0"
+  },
+  "bin": {
+    "crds-components-env-replace": "./index.js"
+  },
+  "dependencies": {
+    "commander": "^2.20.0",
+    "replace-in-file": "^4.1.1"
+  }
 }
