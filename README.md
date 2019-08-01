@@ -18,9 +18,9 @@ If using as part of your project, add the script to the `scripts` section in you
 
 ```json
 {
-  // ...
+  "...": "...",
   "scripts": {
-    // ...
+    "...": "...",
     "env:replace": "crds-components-env-replace [options]"
   }
 }
