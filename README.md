@@ -41,9 +41,9 @@ The following options are available:
 
 Note the following:
 
-- While the environment can be some form of int, the script does nothing if left in the int environment, as **it is assumed all default values in your index.html file are specific to int.**
+- The script does nothing if left in the int environment (see _Environments_, below), as **it is assumed all default values in your index.html file are specific to int.**
 - Only certain environments are accepted. See below for the list.
-- The file should point to your _built_ index.html file. While this defaults to the typical `./dist/index.html` location, it is recommended you specify this directly.
+- The file should point to your _built_ index.html file. While this defaults to the typical `./dist/index.html` location, it is recommended you specify this directly. This argument is passed to the [replace-in-file utility](https://github.com/adamreisnz/replace-in-file), which [supports globs](https://github.com/adamreisnz/replace-in-file#replace-a-single-file-or-glob).
 
 Given those notes, if you are using `$CRDS_ENV` to specify your environment, then your usage will look something like this:
 
