@@ -43,8 +43,8 @@ class EnvReplacer {
     if (!this.isEnv('prod')) return false
     replace.sync({
       files: this.file,
-      from: /crds-components-int.netlify.com/g,
-      to: 'crds-components.netlify.com'
+      from: /components-int.crossroads.net/g,
+      to: 'components.crossroads.net'
     })
   }
 }
