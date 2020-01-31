@@ -23,7 +23,7 @@ const checkFileForAttrs = function(env) {
 
 const checkFileForLib = function(env) {
   const content = fs.readFileSync(tmpFilePath, { encoding: 'utf8' })
-  const pattern = env == 'prod' ? 'crds-components.netlify.com' : 'crds-components-int.netlify.com'
+  const pattern = env == 'prod' ? 'components.crossroads.net' : 'components-int.crossroads.net'
   const match = content.match(new RegExp(pattern, 'g'))
   return (match && match.length == 1) || false
 }
