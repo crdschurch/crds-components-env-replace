@@ -23,7 +23,7 @@ const checkFileForAttrs = function(env) {
 
 const checkFileForLib = function(env) {
   const content = fs.readFileSync(tmpFilePath, { encoding: 'utf8' })
-  const pattern = env == 'prod' ? 'components.crossroads.net' : 'components-int.crossroads.net'
+  const pattern = env == 'prod' ? 'components.crossroads.net' : `components-${env}.crossroads.net`
   const match = content.match(new RegExp(pattern, 'g'))
   return (match && match.length == 1) || false
 }
@@ -147,14 +147,15 @@ describe('replaceCompLib()', function() {
     const result = task.replaceCompLib()
     assert.equal(result, false)
     assert.equal(checkFileForLib('int'), true)
-    assert.equal(checkFileForLib('demo'), true)
+    assert.equal(checkFileForLib('demo'), false)
     assert.equal(checkFileForLib('prod'), false)
   })
-  it('does nothing for demo', function() {
+
+  it('replaces demo value', function() {
     const task = new Replacer({ env: 'demo', file: tmpFilePath })
     const result = task.replaceCompLib()
-    assert.equal(result, false)
-    assert.equal(checkFileForLib('int'), true)
+    assert.notEqual(result, false)
+    assert.equal(checkFileForLib('int'), false)
     assert.equal(checkFileForLib('demo'), true)
     assert.equal(checkFileForLib('prod'), false)
   })
@@ -171,7 +172,7 @@ describe('replaceCompLib()', function() {
     const result = task.replaceCompLib()
     assert.equal(result, false)
     assert.equal(checkFileForLib('int'), true)
-    assert.equal(checkFileForLib('demo'), true)
+    assert.equal(checkFileForLib('demo'), false)
     assert.equal(checkFileForLib('prod'), false)
   })
   it('does nothing for an unexpected env', function() {
@@ -179,7 +180,7 @@ describe('replaceCompLib()', function() {
     const result = task.replaceCompLib()
     assert.equal(result, false)
     assert.equal(checkFileForLib('int'), true)
-    assert.equal(checkFileForLib('demo'), true)
+    assert.equal(checkFileForLib('demo'), false)
     assert.equal(checkFileForLib('prod'), false)
   })
 })
