@@ -1,6 +1,6 @@
 {
   "name": "crds-components-env-replace",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Utility to swap environment values following an SPA build process.",
   "main": "index.js",
   "scripts": {
