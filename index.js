@@ -30,8 +30,21 @@ class EnvReplacer {
     return envMap[env].includes(this.env)
   }
 
+  isProd() {
+    return envMap.prod.includes(this.env)
+  }
+
+  isInt() {
+    return envMap.int.includes(this.env)
+  }
+
+  skipReplacement() {
+    const allEnvs = Object.values(envMap).reduce((acc, val) => [...acc, ...val])
+    return this.isInt() || !allEnvs.includes(this.env)
+  }
+
   replaceCompAttrs() {
-    if (!(this.isEnv('demo') || this.isEnv('prod'))) return false
+    if (this.skipReplacement()) return false
     replace.sync({
       files: this.file,
       from: /(env=")(\w*)"/g,
@@ -40,11 +53,11 @@ class EnvReplacer {
   }
 
   replaceCompLib() {
-    if (!this.isEnv('prod')) return false
+    if (this.skipReplacement()) return false
     replace.sync({
       files: this.file,
-      from: /components-int.crossroads.net/g,
-      to: 'components.crossroads.net'
+      from: /components(-?\w*)?.crossroads.net/g,
+      to: `components${!this.isProd() ? `-${this.env}` : ''}.crossroads.net`
     })
   }
 }
