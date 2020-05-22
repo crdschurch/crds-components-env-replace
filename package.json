@@ -1,11 +1,11 @@
 {
   "name": "crds-components-env-replace",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Utility to swap environment values following an SPA build process.",
   "main": "index.js",
   "scripts": {
     "run-script": "node ./index.js",
-    "test": "mocha"
+    "test": "$(npm bin)/mocha"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,6 @@
   },
   "dependencies": {
     "commander": "^2.20.0",
-    "replace-in-file": "^4.1.1"
+    "replace-in-file": "^6.0.0"
   }
 }
