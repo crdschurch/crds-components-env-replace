@@ -187,7 +187,6 @@ describe('replaceCompLib()', function () {
   it('supports custom find/replace strings', function () {
     const replace = 'ever thus to deadbeats'
     const options = {
-      env: 'other',
       file: tmpFilePath,
       find: 'components-int.crossroads.net',
       replace: replace,

@@ -58,7 +58,7 @@ class EnvReplacer {
   }
 
   replaceCompLib() {
-    if (this.skipReplacement()) return false
+    if (this.skipReplacement() && !(this.replace || this.find)) return false
     let replacement = this.replace || `components${!this.isProd() ? `-${this.env}` : ''}.crossroads.net`;
     return replace.sync({
       files: this.file,
