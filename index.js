@@ -10,20 +10,25 @@ const replace = require('replace-in-file')
 program
   .option('-f, --file <path>', 'Path to file')
   .option('-e, --env <name>', 'Name of environment')
+  .option('--replace <string>', 'Replacement value')
+  .option('--find <string>', 'Value to replace')
   .parse(process.argv)
 
 const envMap = {
   int: ['dev', 'development', 'int'],
   demo: ['demo'],
-  prod: ['prod', 'production']
+  prod: ['prod', 'production'],
+  other: ['other']
 }
 
 // ---------------------------------------- | Replacer
 
 class EnvReplacer {
-  constructor({ file = './dist/index.html', env = 'int' } = {}) {
+  constructor({ file = './dist/index.html', env = 'int', find = undefined, replace = undefined } = {}) {
     this.file = file
     this.env = env
+    this.find = find
+    this.replace = replace
   }
 
   isEnv(env) {
@@ -54,10 +59,11 @@ class EnvReplacer {
 
   replaceCompLib() {
     if (this.skipReplacement()) return false
-    replace.sync({
+    let replacement = this.replace || `components${!this.isProd() ? `-${this.env}` : ''}.crossroads.net`;
+    return replace.sync({
       files: this.file,
-      from: /components(-?\w*)?.crossroads.net/g,
-      to: `components${!this.isProd() ? `-${this.env}` : ''}.crossroads.net`
+      from: this.find || /components(-?\w*)?.crossroads.net/g,
+      to: replacement
     })
   }
 }
@@ -68,7 +74,7 @@ module.exports = EnvReplacer
 
 // ---------------------------------------- | The Task
 
-const replacer = new EnvReplacer({ file: program.file, env: program.env })
+const replacer = new EnvReplacer({ file: program.file, env: program.env, find: program.find, replace: program.replace })
 
 // Replace component attributes to use the appropriate environment.
 replacer.replaceCompAttrs()
